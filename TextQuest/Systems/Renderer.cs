@@ -4,9 +4,10 @@ namespace TextQuest.Systems
 {
     public class Renderer
     {
-        public void Render(Level level)
+        public void Render()
         {
-            foreach (var entity in level.gameobjects)
+            Raylib.DrawRectangle(0, 0, GameManager.GAME_WIDTH, GameManager.GAME_HEIGHT, Color.GREEN);
+            foreach (var entity in GameManager.currentLevel.gameobjects)
             {
                 entity.Draw();
             }

@@ -1,4 +1,4 @@
-using TextQuest.Systems.Utilities;
+using TextQuest.Entities.Interactables;
 using TextQuest.Entities;
 using TextQuest.Structures;
 
@@ -22,7 +22,9 @@ namespace TextQuest.Systems
 
         TextInputManager inputManager;
 
-        Level currentLevel;
+        WorldController worldcontroller;
+
+        public static Level currentLevel;
 
 
 
@@ -42,7 +44,9 @@ namespace TextQuest.Systems
 
             uiManager = new(consoleManager, inventoryManager);
 
-            currentLevel = new Level(new IGameobject[] { new Player(100, 100) });
+            currentLevel = new Level(new Interactable[] { new Pickup(10, 10, 10, 10, "stick") });
+
+            worldcontroller = new WorldController();
         }
 
         public void Run()
@@ -68,10 +72,9 @@ namespace TextQuest.Systems
                 #region DRAWING
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.BLACK);
-                //Background
-                Raylib.DrawRectangle(0, 0, GAME_WIDTH, GAME_HEIGHT, Color.GREEN);
 
-                renderer.Render(currentLevel);
+
+                renderer.Render();
 
                 uiManager.Render();
 
