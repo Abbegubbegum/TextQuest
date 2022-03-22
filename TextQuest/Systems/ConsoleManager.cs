@@ -1,22 +1,27 @@
+using System.Linq;
+
 namespace TextQuest.Systems
 {
     public class ConsoleManager
     {
         public string InputText { get; private set; } = "";
 
-        private Dictionary<string, Action<List<string>>> commands;
+        //Dictionary which uses strings as keys and returns an action that requires a list of strings as arguments and an int of the amount of args required
+        private Dictionary<string, Command> commandList = new();
 
         private TextInputManager inputManager;
 
-        public ConsoleManager(TextInputManager inputManager)
-        {
-            this.inputManager = inputManager;
-            this.inputManager.StartListening();
+        private Worldcontroller worldcontroller;
 
-            commands = new Dictionary<string, Action<List<string>>>
-            {
-                { "pickup", Pickup }
-            };
+        public ConsoleManager(Worldcontroller worldcontroller)
+        {
+            this.worldcontroller = worldcontroller;
+
+            inputManager = new();
+            inputManager.StartListening();
+
+            commandList.Add("pickup", new Command(Pickup, 1));
+
         }
 
         public void Update()
@@ -28,20 +33,50 @@ namespace TextQuest.Systems
 
         public void EnterCommand()
         {
-            List<string> keywords = InputText.Split(" ").ToList();
+            //Grabs all the words divided by a space from the input and removes all the empty occurances
+            var keywords = InputText.Split(" ").ToList().FindAll((kw) => { return kw != ""; });
 
-            string command = keywords[0];
+            string inputCommand = keywords[0];
 
             keywords.RemoveAt(0);
 
-            if (!commands.ContainsKey(command)) return;
+            if (!commandList.ContainsKey(inputCommand))
+            {
+                Logger.Log("Command not found: " + inputCommand, this);
+                return;
+            }
 
-            commands[command](keywords);
+            Command command = commandList[inputCommand];
+
+            if (keywords.Count != command.ArgCount)
+            {
+                Logger.Log("Argcount mismatch: " + command.ArgCount + " != " + keywords.Count, this);
+                return;
+            }
+
+            command.Action(keywords);
+
         }
 
         public void Pickup(List<string> args)
         {
             Logger.Log("Pickup " + args[0], this);
         }
+
+        private readonly struct Command
+        {
+            public Command(Action<List<string>> action, int argCount)
+            {
+                Action = action;
+
+                ArgCount = argCount;
+            }
+
+            public Action<List<string>> Action { get; init; }
+
+            public int ArgCount { get; init; }
+
+        }
     }
 }
+

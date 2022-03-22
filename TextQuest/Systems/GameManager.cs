@@ -20,11 +20,9 @@ namespace TextQuest.Systems
 
         InventoryManager inventoryManager;
 
-        TextInputManager inputManager;
+        Worldcontroller worldcontroller;
 
-        WorldController worldcontroller;
-
-        public static Level currentLevel;
+        public static Level currentLevel = new(null);
 
 
 
@@ -36,17 +34,17 @@ namespace TextQuest.Systems
 
             renderer = new();
 
-            inputManager = new();
-
-            consoleManager = new(inputManager);
-
             inventoryManager = new();
+
+            worldcontroller = new(inventoryManager);
+
+            consoleManager = new(worldcontroller);
+
 
             uiManager = new(consoleManager, inventoryManager);
 
             currentLevel = new Level(new Interactable[] { new Pickup(10, 10, 10, 10, "stick") });
 
-            worldcontroller = new WorldController();
         }
 
         public void Run()

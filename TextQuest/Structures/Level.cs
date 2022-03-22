@@ -8,9 +8,10 @@ namespace TextQuest.Structures
 
         public List<Interactable> interactables = new();
 
-        public Level(Interactable[] interactables, Gameobject[]? gameobjects = null)
+        public Level(Interactable[]? interactables, Gameobject[]? gameobjects = null)
         {
-            this.interactables.AddRange(interactables);
+            if (interactables != null)
+                this.interactables.AddRange(interactables);
 
             List<string> names = new();
 
