@@ -4,9 +4,24 @@ namespace TextQuest.Structures
 {
     public class Level
     {
-        public List<Gameobject> gameobjects = new();
+        private List<Gameobject> rawGameobjects = new();
 
         public List<Interactable> interactables = new();
+
+        public List<Gameobject> Gameobjects
+        {
+            get
+            {
+                List<Gameobject> result = new();
+                result.AddRange(rawGameobjects);
+                result.AddRange(interactables);
+                return result;
+            }
+            set
+            {
+                rawGameobjects = value;
+            }
+        }
 
         public Level(Interactable[]? interactables = null, Gameobject[]? gameobjects = null)
         {
@@ -25,26 +40,21 @@ namespace TextQuest.Structures
                 {
                     names.Add(interactable.Name);
                 }
-
-                this.gameobjects.Add(interactable);
             }
 
             if (gameobjects != null)
-                this.gameobjects.AddRange(gameobjects);
+                rawGameobjects.AddRange(gameobjects);
         }
 
         public void RemoveInteractable(Interactable interactable)
         {
-            if (interactables.Remove(interactable) == false || gameobjects.Remove(interactable) == false)
+            if (interactables.Remove(interactable) == false)
             {
                 Logger.Log("Unable to remove non-existing interactable " + interactable.Name, this, "ERROR");
-                return;
             }
-
-
         }
 
-        public List<string> GetNameList()
+        public List<string> GetInteractableNameList()
         {
             List<string> nameList = new();
 

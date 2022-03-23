@@ -16,19 +16,21 @@ namespace TextQuest.Systems
         {
             string name = args[0];
 
-            Interactable? pickup = GameManager.currentLevel.GetInteractableFromName(name);
+            Interactable? interactable = GameManager.currentLevel.GetInteractableFromName(name);
 
-            if (pickup == null)
+            if (interactable == null)
             {
                 Logger.Log("Interactable not found: " + name, this);
                 return;
             }
 
-            if (pickup is not Entities.Interactables.Pickup)
+            if (interactable is not Entities.Interactables.Pickup)
             {
                 Logger.Log("Interactable not a pickup: " + name, this);
                 return;
             }
+
+            Entities.Interactables.Pickup pickup = (Entities.Interactables.Pickup)interactable;
 
             Logger.Log("Picking up " + name, this);
             GameManager.currentLevel.RemoveInteractable(pickup);
