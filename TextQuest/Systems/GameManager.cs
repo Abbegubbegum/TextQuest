@@ -43,7 +43,7 @@ namespace TextQuest.Systems
 
             uiManager = new(consoleManager, inventoryManager);
 
-            currentLevel = new Level(new Interactable[] { new Pickup(10, 10, 10, 10, "stick") });
+            currentLevel = new Level(pickups: new Pickup[] { new Pickup(10, 10, 10, 10, "stick") });
 
         }
 

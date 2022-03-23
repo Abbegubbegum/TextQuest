@@ -1,21 +1,25 @@
 using TextQuest.Entities;
+using TextQuest.Entities.Interactables;
 
 namespace TextQuest.Structures
 {
     public class Level
     {
-        public List<Gameobject> gameobjects = new();
+        private List<Gameobject> gameobjects = new();
 
-        public List<Interactable> interactables = new();
+        public List<Pickup> pickups = new();
 
-        public Level(Interactable[]? interactables = null, Gameobject[]? gameobjects = null)
+        public Level(Gameobject[]? gameobjects = null, Pickup[]? pickups = null)
         {
-            if (interactables != null)
-                this.interactables.AddRange(interactables);
+            if (gameobjects != null)
+                this.gameobjects.AddRange(gameobjects);
+
+            if (pickups != null)
+                this.pickups.AddRange(pickups);
 
             List<string> names = new();
 
-            foreach (var interactable in this.interactables)
+            foreach (var interactable in GetInteractables())
             {
                 if (names.Contains(interactable.Name))
                 {
@@ -25,30 +29,15 @@ namespace TextQuest.Structures
                 {
                     names.Add(interactable.Name);
                 }
-
-                this.gameobjects.Add(interactable);
             }
-
-            if (gameobjects != null)
-                this.gameobjects.AddRange(gameobjects);
-        }
-
-        public void RemoveInteractable(Interactable interactable)
-        {
-            if (interactables.Remove(interactable) == false || gameobjects.Remove(interactable) == false)
-            {
-                Logger.Log("Unable to remove non-existing interactable " + interactable.Name, this, "ERROR");
-                return;
-            }
-
 
         }
 
-        public List<string> GetNameList()
+        public List<string> GetInteractableNameList()
         {
             List<string> nameList = new();
 
-            foreach (var interactable in interactables)
+            foreach (var interactable in GetInteractables())
             {
                 nameList.Add(interactable.Name);
             }
@@ -58,7 +47,36 @@ namespace TextQuest.Structures
 
         public Interactable? GetInteractableFromName(string name)
         {
-            return interactables.Find((obj) => obj.Name == name);
+            return GetInteractables().Find((obj) => obj.Name == name);
         }
+
+        public Pickup? GetPickupFromName(string name)
+        {
+            return pickups.Find((obj) => obj.Name == name);
+        }
+
+        public List<Gameobject> GetGameObjects()
+        {
+            List<Gameobject> result = new();
+            result.AddRange(gameobjects);
+            result.AddRange(GetInteractables());
+            return result;
+        }
+
+        public List<Interactable> GetInteractables()
+        {
+            List<Interactable> result = new();
+            result.AddRange(pickups);
+            return result;
+        }
+
+        // public void RemoveInteractable(Interactable interactable)
+        // {
+        //     if (interactables.Remove(interactable) == false || gameobjects.Remove(interactable) == false)
+        //     {
+        //         Logger.Log("Unable to remove non-existing interactable " + interactable.Name, this, "ERROR");
+        //         return;
+        //     }
+        // }
     }
 }

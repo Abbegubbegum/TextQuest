@@ -1,6 +1,6 @@
 namespace TextQuest.Entities
 {
-    public class Interactable : Gameobject
+    public abstract class Interactable : Gameobject
     {
         public string Name { get; protected set; }
 

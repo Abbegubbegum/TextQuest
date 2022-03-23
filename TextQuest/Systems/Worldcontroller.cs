@@ -1,5 +1,6 @@
 using TextQuest.Structures;
 using TextQuest.Entities;
+using TextQuest.Entities.Interactables;
 
 namespace TextQuest.Systems
 {
@@ -16,22 +17,25 @@ namespace TextQuest.Systems
         {
             string name = args[0];
 
-            Interactable? pickup = GameManager.currentLevel.GetInteractableFromName(name);
+            Pickup? pickup = GameManager.currentLevel.GetPickupFromName(name);
 
             if (pickup == null)
             {
-                Logger.Log("Interactable not found: " + name, this);
-                return;
+                if (GameManager.currentLevel.GetInteractableFromName(name) == null)
+                {
+                    Logger.Log("Pickup not found: " + name, this);
+                    return;
+                }
+                else
+                {
+                    Logger.Log("Interactable not a pickup: " + name, this);
+                    return;
+                }
             }
 
-            if (pickup is not Entities.Interactables.Pickup)
-            {
-                Logger.Log("Interactable not a pickup: " + name, this);
-                return;
-            }
 
             Logger.Log("Picking up " + name, this);
-            GameManager.currentLevel.RemoveInteractable(pickup);
+            // GameManager.currentLevel.RemoveGameobject(pickup);
             inventoryManager.AddToInventory(pickup);
         }
     }
