@@ -20,7 +20,7 @@ namespace TextQuest.Systems
             inputManager = new();
             inputManager.StartListening();
 
-            commandList.Add("pickup", new Command(Pickup, 1));
+            commandList.Add("pickup", new Command(worldcontroller.Pickup, 1));
 
         }
 
@@ -34,7 +34,7 @@ namespace TextQuest.Systems
         public void EnterCommand()
         {
             //Grabs all the words divided by a space from the input and removes all the empty occurances
-            var keywords = InputText.Split(" ").ToList().FindAll((kw) => { return kw != ""; });
+            var keywords = InputText.Split(" ").ToList().FindAll((kw) => kw != "");
 
             string inputCommand = keywords[0];
 

@@ -22,7 +22,7 @@ namespace TextQuest.Systems
 
         Worldcontroller worldcontroller;
 
-        public static Level currentLevel = new(null);
+        public static Level currentLevel = new();
 
 
 
