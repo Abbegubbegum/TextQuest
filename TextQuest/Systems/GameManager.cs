@@ -10,7 +10,7 @@ namespace TextQuest.Systems
         public const int SCREEN_HEIGHT = 800;
 
         public const int GAME_WIDTH = SCREEN_WIDTH / 3 * 2;
-        public const int GAME_HEIGHT = SCREEN_HEIGHT;
+        public const int GAME_HEIGHT = SCREEN_HEIGHT - 100;
 
         Renderer renderer;
 
@@ -38,12 +38,12 @@ namespace TextQuest.Systems
 
             worldcontroller = new(inventoryManager);
 
-            consoleManager = new(worldcontroller);
+            consoleManager = new(worldcontroller, inventoryManager);
 
 
             uiManager = new(consoleManager, inventoryManager);
 
-            currentLevel = new Level(new Interactable[] { new Pickup(10, 10, 10, 10, "stick") });
+            currentLevel = new Level(new Interactable[] { new Pickup(50, 50, 100, 100, "stick", Color.BROWN), new Pickup(300, 400, 10, 100, "string", Color.WHITE) });
 
         }
 
@@ -72,7 +72,7 @@ namespace TextQuest.Systems
                 Raylib.ClearBackground(Color.BLACK);
 
 
-                renderer.Render();
+                renderer.Render(currentLevel);
 
                 uiManager.Render();
 

@@ -24,17 +24,18 @@ namespace TextQuest.Systems
                 return;
             }
 
-            if (interactable is not Entities.Interactables.Pickup)
+            if (interactable is Entities.Interactables.Pickup pickupObject)
             {
-                Logger.Log("Interactable not a pickup: " + name, this);
-                return;
+                Logger.Log("Picking up " + name, this);
+                GameManager.currentLevel.RemoveInteractable(pickupObject);
+                inventoryManager.AddToInventory(pickupObject);
             }
-
-            Entities.Interactables.Pickup pickup = (Entities.Interactables.Pickup)interactable;
-
-            Logger.Log("Picking up " + name, this);
-            GameManager.currentLevel.RemoveInteractable(pickup);
-            inventoryManager.AddToInventory(pickup);
+            else
+            {
+                Logger.Log("Interactable not a pickup " + name, this);
+            }
         }
+
+        
     }
 }

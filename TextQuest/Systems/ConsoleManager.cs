@@ -13,15 +13,18 @@ namespace TextQuest.Systems
 
         private Worldcontroller worldcontroller;
 
-        public ConsoleManager(Worldcontroller worldcontroller)
+        private InventoryManager inventoryManager;
+
+        public ConsoleManager(Worldcontroller worldcontroller, InventoryManager inventoryManager)
         {
             this.worldcontroller = worldcontroller;
+            this.inventoryManager = inventoryManager;
 
             inputManager = new();
             inputManager.StartListening();
 
             commandList.Add("pickup", new Command(worldcontroller.Pickup, 1));
-
+            commandList.Add("combine", new Command(inventoryManager.Combine, 2));
         }
 
         public void Update()
@@ -56,6 +59,7 @@ namespace TextQuest.Systems
 
             command.Action(keywords);
 
+            inputManager.ResetText();
         }
 
         public void Pickup(List<string> args)
