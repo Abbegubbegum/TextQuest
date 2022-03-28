@@ -4,11 +4,11 @@ namespace TextQuest.Systems.Utilities
     {
         private static bool enabled = true;
 
-        public static void Log(string message, object context, string type = "")
+        public static void Log(string message, string type = "")
         {
             if (!enabled) return;
 
-            Console.WriteLine($"{type} {message}, {context}");
+            Console.WriteLine($"{type} {message}");
         }
 
         public static void Toggle()

@@ -25,6 +25,10 @@ namespace TextQuest.Systems
 
             commandList.Add("pickup", new Command(worldcontroller.Pickup, 1));
             commandList.Add("combine", new Command(inventoryManager.Combine, 2));
+            commandList.Add("interact", new Command(worldcontroller.Interact, 1));
+            commandList.Add("use", new Command(worldcontroller.Use, 2));
+            commandList.Add("check", new Command(worldcontroller.Check, 0));
+            commandList.Add("commands", new Command(Commands, 0));
         }
 
         public void Update()
@@ -45,7 +49,7 @@ namespace TextQuest.Systems
 
             if (!commandList.ContainsKey(inputCommand))
             {
-                Logger.Log("Command not found: " + inputCommand, this);
+                Logger.Log("Command not found: " + inputCommand);
                 return;
             }
 
@@ -53,7 +57,7 @@ namespace TextQuest.Systems
 
             if (keywords.Count != command.ArgCount)
             {
-                Logger.Log("Argcount mismatch: " + command.ArgCount + " != " + keywords.Count, this);
+                Logger.Log("Argcount mismatch: " + command.ArgCount + " != " + keywords.Count);
                 return;
             }
 
@@ -64,7 +68,16 @@ namespace TextQuest.Systems
 
         public void Pickup(List<string> args)
         {
-            Logger.Log("Pickup " + args[0], this);
+            Logger.Log("Pickup " + args[0]);
+        }
+
+        public void Commands(List<string> args)
+        {
+            Logger.Log("Commands: ");
+            foreach (var command in commandList)
+            {
+                Logger.Log(command.Key);
+            }
         }
 
         private readonly struct Command

@@ -34,7 +34,7 @@ namespace TextQuest.Structures
             {
                 if (names.Contains(interactable.Name))
                 {
-                    Logger.Log($"Interactable name duplicate: {interactable.Name}", this, "ERROR");
+                    Logger.Log($"Interactable name duplicate: {interactable.Name}", "ERROR");
                 }
                 else
                 {
@@ -46,11 +46,30 @@ namespace TextQuest.Structures
                 rawGameobjects.AddRange(gameobjects);
         }
 
+        public void AddInteractable(Interactable newInteractable)
+        {
+            interactables.Add(newInteractable);
+
+            List<string> names = new();
+
+            foreach (var interactable in interactables)
+            {
+                if (names.Contains(interactable.Name))
+                {
+                    Logger.Log($"Interactable name duplicate: {interactable.Name}", "ERROR");
+                }
+                else
+                {
+                    names.Add(interactable.Name);
+                }
+            }
+        }
+
         public void RemoveInteractable(Interactable interactable)
         {
             if (interactables.Remove(interactable) == false)
             {
-                Logger.Log("Unable to remove non-existing interactable " + interactable.Name, this, "ERROR");
+                Logger.Log("Unable to remove non-existing interactable " + interactable.Name, "ERROR");
             }
         }
 

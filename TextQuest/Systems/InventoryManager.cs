@@ -22,7 +22,7 @@ public class InventoryManager
 
     public void AddToInventory(Pickup pickup)
     {
-        Logger.Log("Add to inventory: " + pickup.Name, this);
+        Logger.Log("Add to inventory: " + pickup.Name);
         inventory.Add(pickup);
     }
 
@@ -30,7 +30,7 @@ public class InventoryManager
     {
         if (!inventory.Remove(pickup))
         {
-            Logger.Log("Failed to remove from inventory: " + pickup.Name, this);
+            Logger.Log("Failed to remove from inventory: " + pickup.Name);
         }
     }
 
@@ -46,12 +46,12 @@ public class InventoryManager
 
         if (item1 == null)
         {
-            Logger.Log("Pickup not in inventory: " + args[0], this);
+            Logger.Log("Pickup not in inventory: " + args[0]);
         }
 
         if (item2 == null)
         {
-            Logger.Log("Pickup not in inventory: " + args[1], this);
+            Logger.Log("Pickup not in inventory: " + args[1]);
         }
 
         if (item1 == null || item2 == null)
@@ -61,7 +61,7 @@ public class InventoryManager
 
         if (!combinations.ContainsKey((item1.Name, item2.Name)))
         {
-            Logger.Log($"Combination does not exist: {item1.Name} + {item2.Name}", this);
+            Logger.Log($"Combination does not exist: {item1.Name} + {item2.Name}");
             return;
         }
 

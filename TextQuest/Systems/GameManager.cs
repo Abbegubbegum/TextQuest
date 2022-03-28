@@ -9,7 +9,7 @@ namespace TextQuest.Systems
         public const int SCREEN_WIDTH = 1800;
         public const int SCREEN_HEIGHT = 800;
 
-        public const int GAME_WIDTH = SCREEN_WIDTH / 3 * 2;
+        public const int GAME_WIDTH = SCREEN_WIDTH / 4 * 3;
         public const int GAME_HEIGHT = SCREEN_HEIGHT - 100;
 
         Renderer renderer;
@@ -43,8 +43,24 @@ namespace TextQuest.Systems
 
             uiManager = new(consoleManager, inventoryManager);
 
-            currentLevel = new Level(new Interactable[] { new Pickup(50, 50, 100, 100, "stick", Color.BROWN), new Pickup(300, 400, 10, 100, "string", Color.WHITE) });
+            CreateLevels();
 
+
+
+        }
+
+        private void CreateLevels()
+        {
+            Key coolKey = new Key(400, 200, "key");
+            Level level1 = new Level(new Interactable[] { new Pickup(50, 50, 50, 100, "stick", Color.BROWN), new Pickup(300, 400, 10, 100, "string", Color.WHITE), coolKey });
+            Level level3 = new Level();
+            LockedDoor lockedDoor = new LockedDoor(1200, 100, "bigdoor", level3, coolKey);
+            Level level2 = new Level(new Interactable[] { lockedDoor });
+            Door door = new Door(800, 400, "door", level2);
+            Door door2 = new Door(800, 400, "door", level1);
+            level1.AddInteractable(door);
+            level2.AddInteractable(door2);
+            currentLevel = level1;
         }
 
         public void Run()

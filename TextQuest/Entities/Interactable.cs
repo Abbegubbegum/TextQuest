@@ -1,3 +1,6 @@
+using TextQuest.Entities.Interactables;
+using TextQuest.Systems;
+
 namespace TextQuest.Entities
 {
     public class Interactable : Gameobject
@@ -9,11 +12,15 @@ namespace TextQuest.Entities
             Name = name;
         }
 
-
-
-        public virtual void Interact()
+        public virtual void Interact(Worldcontroller worldcontroller)
         {
+            Logger.Log("Bruh you dumb, thats not what you do");
+        }
 
+        public virtual bool UsedOn(Pickup item)
+        {
+            Logger.Log("Bruh you dumb, thats not what you do");
+            return false;
         }
     }
 }
