@@ -66,11 +66,6 @@ namespace TextQuest.Systems
             inputManager.ResetText();
         }
 
-        public void Pickup(List<string> args)
-        {
-            Logger.Log("Pickup " + args[0]);
-        }
-
         public void Commands(List<string> args)
         {
             Logger.Log("Commands: ");

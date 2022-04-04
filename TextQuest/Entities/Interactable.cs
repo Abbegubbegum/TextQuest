@@ -17,7 +17,7 @@ namespace TextQuest.Entities
             Logger.Log("Bruh you dumb, thats not what you do");
         }
 
-        public virtual bool UsedOn(Pickup item)
+        public virtual bool UseItemOn(Pickup item)
         {
             Logger.Log("Bruh you dumb, thats not what you do");
             return false;

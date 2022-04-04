@@ -51,13 +51,13 @@ namespace TextQuest.Systems
 
         private void CreateLevels()
         {
-            Key coolKey = new Key(400, 200, "key");
-            Level level1 = new Level(new Interactable[] { new Pickup(50, 50, 50, 100, "stick", Color.BROWN), new Pickup(300, 400, 10, 100, "string", Color.WHITE), coolKey });
-            Level level3 = new Level();
-            LockedDoor lockedDoor = new LockedDoor(1200, 100, "bigdoor", level3, coolKey);
-            Level level2 = new Level(new Interactable[] { lockedDoor });
-            Door door = new Door(800, 400, "door", level2);
-            Door door2 = new Door(800, 400, "door", level1);
+            Key coolKey = new(400, 200, "key");
+            Level level1 = new(new Interactable[] { new Pickup(50, 50, 50, 100, "stick", Color.BROWN), new Pickup(300, 400, 10, 100, "string", Color.WHITE), coolKey });
+            Level level3 = new();
+            LockedDoor lockedDoor = new(1200, 100, "bigdoor", level3, coolKey);
+            Level level2 = new(new Interactable[] { lockedDoor });
+            Door door = new(800, 400, "door", level2);
+            Door door2 = new(800, 400, "door", level1);
             level1.AddInteractable(door);
             level2.AddInteractable(door2);
             currentLevel = level1;

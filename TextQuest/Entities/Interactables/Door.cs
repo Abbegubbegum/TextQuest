@@ -6,16 +6,16 @@ namespace TextQuest.Entities.Interactables
 {
     public class Door : Interactable
     {
-        public Level nextLevel;
+        public Level connectedLevel;
 
-        public Door(int x, int y, string name, Level nextLevel) : base(x, y, 100, 200, name, Color.BROWN)
+        public Door(int x, int y, string name, Level connectedLevel) : base(x, y, 100, 200, name, Color.BROWN)
         {
-            this.nextLevel = nextLevel;
+            this.connectedLevel = connectedLevel;
         }
 
         public override void Interact(Worldcontroller worldcontroller)
         {
-            worldcontroller.ChangeLevel(nextLevel);
+            worldcontroller.ChangeLevel(connectedLevel);
         }
 
     }

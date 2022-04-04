@@ -79,7 +79,7 @@ namespace TextQuest.Systems
                 return;
             }
 
-            if (target.UsedOn(item))
+            if (target.UseItemOn(item))
             {
                 inventoryManager.RemoveFromInventory(item);
             }

@@ -6,8 +6,8 @@ namespace TextQuest.Entities.Interactables
 {
     public class LockedDoor : Door
     {
-        bool isLocked = true;
-        Key correctKey;
+        private bool isLocked = true;
+        private Key correctKey;
 
         public LockedDoor(int x, int y, string name, Level nextLevel, Key key) : base(x, y, name, nextLevel)
         {
@@ -26,7 +26,7 @@ namespace TextQuest.Entities.Interactables
             base.Interact(worldcontroller);
         }
 
-        public override bool UsedOn(Pickup item)
+        public override bool UseItemOn(Pickup item)
         {
             if (item is Key usedKey)
             {

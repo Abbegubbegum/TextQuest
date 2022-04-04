@@ -9,7 +9,7 @@ public class InventoryManager
     public int inventoryCapacity = 6;
     public List<Pickup> inventory;
 
-    public Dictionary<(string, string), Pickup> combinations = new();
+    private Dictionary<(string, string), Pickup> combinations = new();
 
     public InventoryManager()
     {
