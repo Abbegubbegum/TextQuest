@@ -9,20 +9,24 @@ namespace TextQuest.Systems
         //Dictionary which uses strings as keys and returns an action that requires a list of strings as arguments and an int of the amount of args required
         private Dictionary<string, Command> commandList = new();
 
+        //references to componenents
         private TextInputManager inputManager;
 
         private Worldcontroller worldcontroller;
 
         private InventoryManager inventoryManager;
 
+
         public ConsoleManager(Worldcontroller worldcontroller, InventoryManager inventoryManager)
         {
             this.worldcontroller = worldcontroller;
             this.inventoryManager = inventoryManager;
 
+            //Create inputmanager
             inputManager = new();
             inputManager.StartListening();
 
+            //Add the different commands, should be json deserialization
             commandList.Add("pickup", new Command(worldcontroller.Pickup, 1));
             commandList.Add("combine", new Command(inventoryManager.Combine, 2));
             commandList.Add("interact", new Command(worldcontroller.Interact, 1));
@@ -31,6 +35,7 @@ namespace TextQuest.Systems
             commandList.Add("commands", new Command(Commands, 0));
         }
 
+        //Update the text input manager
         public void Update()
         {
             inputManager.Update();
@@ -38,34 +43,43 @@ namespace TextQuest.Systems
             InputText = inputManager.Text;
         }
 
+        //Enter the command and runs it
         public void EnterCommand()
         {
             //Grabs all the words divided by a space from the input and removes all the empty occurances
             var keywords = InputText.Split(" ").ToList().FindAll((kw) => kw != "");
 
+            //Grabs first word which is the command name
             string inputCommand = keywords[0];
 
+            //removes it to create the other arguments
             keywords.RemoveAt(0);
 
+            //Check if entered command exist
             if (!commandList.ContainsKey(inputCommand))
             {
                 Logger.Log("Command not found: " + inputCommand);
                 return;
             }
 
+            //grab the command from the dictionary
             Command command = commandList[inputCommand];
 
+            //Check that the required argument counts match
             if (keywords.Count != command.ArgCount)
             {
                 Logger.Log("Argcount mismatch: " + command.ArgCount + " != " + keywords.Count);
                 return;
             }
 
+            //Do the action
             command.Action(keywords);
 
+            //Clear input text
             inputManager.ResetText();
         }
 
+        //Prints out all the commands
         public void Commands(List<string> args)
         {
             Logger.Log("Commands: ");
@@ -75,6 +89,7 @@ namespace TextQuest.Systems
             }
         }
 
+        //A struct for keeping an action and argcount together
         private readonly struct Command
         {
             public Command(Action<List<string>> action, int argCount)
@@ -87,7 +102,6 @@ namespace TextQuest.Systems
             public Action<List<string>> Action { get; init; }
 
             public int ArgCount { get; init; }
-
         }
     }
 }

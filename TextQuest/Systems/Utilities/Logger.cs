@@ -1,5 +1,6 @@
 namespace TextQuest.Systems.Utilities
 {
+    //Debug logger which should be printing to the ingame console but...
     public static class Logger
     {
         private static bool enabled = true;

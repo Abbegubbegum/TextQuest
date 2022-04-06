@@ -8,6 +8,7 @@ namespace TextQuest.Systems
         private int currentKeyRaw = 0;
         private char currentKey;
 
+        //List of allowed keycode keys
         private readonly int[] allowedKeys = { 32, 90, 88, 67, 86, 66, 78, 77, 65, 83, 68, 70, 71, 72, 74, 75, 76, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80 };
 
         public void Update()
@@ -35,6 +36,7 @@ namespace TextQuest.Systems
             }
         }
 
+        //Helper functions
         public void StartListening()
         {
             listening = true;
