@@ -7,14 +7,15 @@ namespace TextQuest.Entities.Interactables
     public class LockedDoor : Door
     {
         private bool isLocked = true;
+        //Reference to the correct key to unlock the door
         private Key correctKey;
 
-        public LockedDoor(int x, int y, string name, Level nextLevel, Key key) : base(x, y, name, nextLevel)
+        public LockedDoor(int x, int y, string name, Level connectedLevel, Key key) : base(x, y, name, connectedLevel)
         {
             correctKey = key;
         }
 
-
+        //Same as regular door interact but only runs if door is unlocked
         public override void Interact(Worldcontroller worldcontroller)
         {
             if (isLocked)
@@ -26,6 +27,7 @@ namespace TextQuest.Entities.Interactables
             base.Interact(worldcontroller);
         }
 
+        //Unlocks the door if player uses a key on door
         public override bool UseItemOn(Pickup item)
         {
             if (item is Key usedKey)

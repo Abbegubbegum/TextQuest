@@ -52,16 +52,16 @@ namespace TextQuest.Systems
         //Just to group up level creation and sets the current level to a level
         private void CreateLevels()
         {
-            //A key
+            //The key
             Key coolKey = new(400, 200, "key");
-            //First level with some pickups and a key
-            Level level1 = new(new Interactable[] { new Pickup(50, 50, 50, 100, "stick", Color.BROWN), new Pickup(300, 400, 10, 100, "string", Color.WHITE), coolKey });
+            //First level with some pickups
+            Level level1 = new(new Interactable[] { new Pickup(25, 75, 100, 10, "stick", Color.BROWN), new Pickup(300, 400, 10, 100, "string", Color.WHITE) });
             //Instantiate level 3
-            Level level3 = new(new Interactable[] { new Well(300, 300, "well") });
-            //Locked door with a reference to level 3
+            Level level3 = new();
+            //Locked door with a reference to level 3 and coolKey
             LockedDoor lockedDoor = new(1200, 100, "bigdoor", level3, coolKey);
-            //Second level contains the locked door
-            Level level2 = new(new Interactable[] { lockedDoor });
+            //Second level contains the locked door and a well with the key inside
+            Level level2 = new(new Interactable[] { lockedDoor, new Well(100, 200, "well", coolKey) });
             //Create two doors to connect level1 to level2
             Door door = new(800, 400, "door", level2);
             Door door2 = new(800, 400, "door", level1);
@@ -70,7 +70,7 @@ namespace TextQuest.Systems
             currentLevel = level1;
         }
 
-        //Start the game and run the game loop
+        //Run the main game loop
         public void Run()
         {
             //Game loop

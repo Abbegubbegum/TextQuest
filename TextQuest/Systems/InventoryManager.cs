@@ -18,7 +18,7 @@ public class InventoryManager
         inventory = new(inventoryCapacity);
 
         //Adds the different combinations in the game
-        combinations.Add(("stick", "string"), new Pickup(0, 0, 20, 20, "fishingrod", Color.GOLD));
+        combinations.Add(("stick", "string"), new Pickup(0, 0, 35, 35, "fishingrod", Color.MAGENTA));
 
         //Generates mirror combinations
         combinations = GenerateMirrorCombinations(combinations);

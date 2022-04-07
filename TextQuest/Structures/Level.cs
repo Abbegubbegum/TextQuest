@@ -91,7 +91,7 @@ namespace TextQuest.Structures
             return nameList;
         }
 
-        //nullable as it doesn't need to exist
+        //nullable as it isn't guaranteed to exist
         public Interactable? GetInteractableFromName(string name)
         {
             return interactables.Find((obj) => obj.Name == name);
