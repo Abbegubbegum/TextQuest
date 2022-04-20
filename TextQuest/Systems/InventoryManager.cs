@@ -1,6 +1,4 @@
-using TextQuest.Entities;
 using TextQuest.Entities.Interactables;
-using TextQuest.Systems.Utilities;
 
 namespace TextQuest.Systems
 {

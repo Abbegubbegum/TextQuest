@@ -1,4 +1,3 @@
-using System;
 using TextQuest.Structures;
 using TextQuest.Systems;
 

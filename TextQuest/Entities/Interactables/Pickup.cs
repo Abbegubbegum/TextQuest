@@ -1,5 +1,3 @@
-using TextQuest.Systems;
-
 namespace TextQuest.Entities.Interactables
 {
     //Class just for checking if they are pickupable, no other functionality needed

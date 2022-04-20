@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace TextQuest.Systems
 {
     public class ConsoleManager
