@@ -14,7 +14,7 @@ public class InventoryManager
 
     public InventoryManager()
     {
-        //Create the list with the max
+        //Create the list with the max capacity
         inventory = new(inventoryCapacity);
 
         //Adds the different combinations in the game

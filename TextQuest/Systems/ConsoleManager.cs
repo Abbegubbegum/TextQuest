@@ -47,18 +47,22 @@ namespace TextQuest.Systems
         public void EnterCommand()
         {
             //Grabs all the words divided by a space from the input and removes all the empty occurances
-            var keywords = InputText.Split(" ").ToList().FindAll((kw) => kw != "");
+            var keywords = from keyword in InputText.Split(" ")
+                           where keyword.Length > 0
+                           select keyword;
 
             //Grabs first word which is the command name
-            string inputCommand = keywords[0];
+            string inputCommand = keywords.First();
 
             //removes it to create the other arguments
-            keywords.RemoveAt(0);
+            List<string> arguments = keywords.ToList();
+            arguments.RemoveAt(0);
 
             //Check if entered command exist
             if (!commandList.ContainsKey(inputCommand))
             {
                 Logger.Log("Command not found: " + inputCommand);
+                Logger.Log("Use Command 'commands' to see all commands");
                 return;
             }
 
@@ -66,14 +70,14 @@ namespace TextQuest.Systems
             Command command = commandList[inputCommand];
 
             //Check that the required argument counts match
-            if (keywords.Count != command.ArgCount)
+            if (arguments.Count != command.ArgCount)
             {
-                Logger.Log("Argcount mismatch: " + command.ArgCount + " != " + keywords.Count);
+                Logger.Log("Argcount mismatch: " + command.ArgCount + " != " + arguments.Count);
                 return;
             }
 
             //Do the action
-            command.Action(keywords);
+            command.Action(arguments);
 
             //Clear input text
             inputManager.ResetText();

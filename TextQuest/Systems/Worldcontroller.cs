@@ -41,7 +41,7 @@ namespace TextQuest.Systems
             }
             else
             {
-                Logger.Log("Interactable not a pickup " + name);
+                Logger.Log("Interactable not a pickup: " + name);
             }
         }
 

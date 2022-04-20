@@ -23,16 +23,9 @@ namespace TextQuest.Systems
                 Text += currentKey.ToString().ToLower();
                 // Text = currentUnicodeKey.ToString();
             }
-            else if (currentKeyRaw == (int)KeyboardKey.KEY_BACKSPACE)
+            else if (currentKeyRaw == (int)KeyboardKey.KEY_BACKSPACE && Text.Length > 0)
             {
-                try
-                {
-                    Text = Text.Remove(Text.Length - 1);
-                }
-                catch
-                {
-
-                }
+                Text = Text.Remove(Text.Length - 1);
             }
         }
 
