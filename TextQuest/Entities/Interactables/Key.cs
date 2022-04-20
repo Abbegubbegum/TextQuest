@@ -1,5 +1,3 @@
-using System;
-
 namespace TextQuest.Entities.Interactables
 {
     public class Key : Pickup

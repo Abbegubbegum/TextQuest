@@ -12,16 +12,9 @@ namespace TextQuest.Systems
         //references to componenents
         private TextInputManager inputManager;
 
-        private Worldcontroller worldcontroller;
-
-        private InventoryManager inventoryManager;
-
 
         public ConsoleManager(Worldcontroller worldcontroller, InventoryManager inventoryManager)
         {
-            this.worldcontroller = worldcontroller;
-            this.inventoryManager = inventoryManager;
-
             //Create inputmanager
             inputManager = new();
             inputManager.StartListening();
@@ -31,7 +24,7 @@ namespace TextQuest.Systems
             commandList.Add("combine", new Command(inventoryManager.Combine, 2));
             commandList.Add("interact", new Command(worldcontroller.Interact, 1));
             commandList.Add("use", new Command(worldcontroller.Use, 2));
-            commandList.Add("check", new Command(worldcontroller.Check, 0));
+            commandList.Add("check", new Command(Worldcontroller.Check, 0));
             commandList.Add("commands", new Command(Commands, 0));
         }
 
@@ -54,9 +47,8 @@ namespace TextQuest.Systems
             //Grabs first word which is the command name
             string inputCommand = keywords.First();
 
-            //removes it to create the other arguments
-            List<string> arguments = keywords.ToList();
-            arguments.RemoveAt(0);
+            //create a list with the other arguments 
+            List<string> arguments = keywords.Skip(1).ToList();
 
             //Check if entered command exist
             if (!commandList.ContainsKey(inputCommand))

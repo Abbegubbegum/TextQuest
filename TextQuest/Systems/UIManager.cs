@@ -43,13 +43,13 @@ namespace TextQuest.Systems
             Raylib.DrawText(consoleManager.InputText, (int)(consoleInputRec.x + textMargin), (int)(consoleInputRec.y + textMargin), 32, Color.WHITE);
 
             //Creates the first inventory box to the first position and taking up a width of inventorywidth / inventorycapacity
-            Rectangle inventoryBox = new(0, inventoryRec.y, inventoryRec.width / inventoryManager.inventoryCapacity, inventoryRec.height);
+            Rectangle inventoryBox = new(0, inventoryRec.y, inventoryRec.width / inventoryManager.InventoryCapacity, inventoryRec.height);
 
             //draw every inventory box
-            for (int i = 0; i < inventoryManager.inventoryCapacity; i++)
+            for (int i = 0; i < inventoryManager.InventoryCapacity; i++)
             {
                 //Set their x to the correct position
-                inventoryBox.x = inventoryRec.width / inventoryManager.inventoryCapacity * i;
+                inventoryBox.x = inventoryRec.width / inventoryManager.InventoryCapacity * i;
 
                 //Fill it black
                 Raylib.DrawRectangleLinesEx(inventoryBox, inventoryBoxLineThickness, Color.WHITE);

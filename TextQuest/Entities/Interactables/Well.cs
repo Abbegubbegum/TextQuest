@@ -4,11 +4,11 @@ namespace TextQuest.Entities.Interactables
 {
     public class Well : Interactable
     {
-        private Key keyToBeAdded;
+        private readonly Key containedKey;
 
-        public Well(int x, int y, string name, Key keyToBeAdded) : base(x, y, 100, 100, name, Color.BLACK)
+        public Well(int x, int y, string name, Key containedKey) : base(x, y, 100, 100, name, Color.BLACK)
         {
-            this.keyToBeAdded = keyToBeAdded;
+            this.containedKey = containedKey;
         }
 
         //Check if fishing rod is used, if so add the key to the current level
@@ -17,7 +17,7 @@ namespace TextQuest.Entities.Interactables
             if (item.Name == "fishingrod")
             {
                 c = Color.BLUE;
-                GameManager.currentLevel.AddInteractable(keyToBeAdded);
+                GameManager.currentLevel.AddInteractable(containedKey);
                 return true;
             }
 

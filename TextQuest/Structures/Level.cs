@@ -34,11 +34,11 @@ namespace TextQuest.Structures
             if (interactables != null)
                 this.interactables.AddRange(interactables);
 
-            CheckNameDuplication();
-
             //if gameobjects parameter exists, add
             if (gameobjects != null)
                 rawGameobjects.AddRange(gameobjects);
+
+            CheckNameDuplication();
         }
 
         //Helper functions
@@ -54,13 +54,12 @@ namespace TextQuest.Structures
             List<string> names = new();
 
             //For each interactable in the level
-            foreach (var interactable in this.interactables)
+            foreach (var interactable in interactables)
             {
-                //Check if name duplicate exists and abort
+                //Check if name duplicate exists
                 if (names.Contains(interactable.Name))
                 {
                     Logger.Log($"Interactable name duplicate: {interactable.Name}", "ERROR");
-                    return;
                 }
                 //else Add the name to the list
                 else

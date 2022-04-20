@@ -97,7 +97,7 @@ namespace TextQuest.Systems
         }
 
         //The command check which prints out all interactables in the level
-        public void Check(List<string> args)
+        public static void Check(List<string> args)
         {
             List<string> names = GameManager.currentLevel.GetInteractableNameList();
 
@@ -109,7 +109,7 @@ namespace TextQuest.Systems
         }
 
         //Helper functions
-        public void ChangeLevel(Level nextLevel)
+        public static void ChangeLevel(Level nextLevel)
         {
             GameManager.currentLevel = nextLevel;
         }
