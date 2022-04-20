@@ -88,16 +88,16 @@ namespace TextQuest.Systems
         //A struct for keeping an action and argcount together
         private readonly struct Command
         {
+            public Action<List<string>> Action { get; init; }
+
+            public int ArgCount { get; init; }
+
             public Command(Action<List<string>> action, int argCount)
             {
                 Action = action;
 
                 ArgCount = argCount;
             }
-
-            public Action<List<string>> Action { get; init; }
-
-            public int ArgCount { get; init; }
         }
     }
 }
